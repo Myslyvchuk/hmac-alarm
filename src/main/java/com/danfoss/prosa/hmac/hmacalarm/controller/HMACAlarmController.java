@@ -28,15 +28,17 @@ public class HMACAlarmController {
     }
 
     @PostMapping(value = "/coles")
+    // "Header" should be replaced with correct hmac request header from webhook.
     public void getAlarmsForColes(@RequestHeader("Header") String hmac, @RequestBody Object request)
         throws JsonProcessingException {
+        // Object request can be then parsed into either Alarm or Webhook model, as this endpoint accepts both request's
+        // body, Alarm as response on alarm event and Webhook as response on ping event.
         final String data = mapper.writeValueAsString(request);
         final String debug = hmacUtil.calculateHmac(data);
+        log.debug("HMAC for request {}", debug);
         if (!hmacUtil.checkHmac(mapper.writeValueAsString(request), hmac)) {
             throw new IllegalArgumentException("Modified request");
         }
         log.info("HMAC alarm {}", request);
     }
-
-
 }
