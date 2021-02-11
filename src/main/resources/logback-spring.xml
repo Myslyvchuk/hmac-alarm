@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <property name="LOG_EXCEPTION_CONVERSION_WORD" value="%rEx"/>
+    <property name="LOG_LEVEL_PATTERN" value="%5p"/>
+    <property name="CONSOLE_LOG_PATTERN"
+        value="%black(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %magenta(${PID}) %gray(---) %-90(%magenta([%18.18thread]) %cyan(%c{10})) %gray(:) %X{threadId} %m%n${LOG_EXCEPTION_CONVERSION_WORD}"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
+
